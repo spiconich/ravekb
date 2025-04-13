@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ravekb/constants/strings.dart';
+import 'package:ravekb/views/home_view.dart';
 
 void main() {
   runApp(const MainApp());
@@ -9,12 +11,14 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
+    return MaterialApp(
+      title: AppStrings.title,
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      home: HomeView(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
