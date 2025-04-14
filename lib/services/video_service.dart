@@ -1,3 +1,4 @@
+import 'package:ravekb/constants/app_strings.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoService {
@@ -16,7 +17,7 @@ class VideoService {
       _controller.play();
     } catch (e) {
       _isInitialized = false;
-      throw Exception("Ошибка инициализации видео: $e");
+      throw Exception("${AppStrings.videoInitErr} $e");
     }
   }
 

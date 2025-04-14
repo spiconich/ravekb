@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ravekb/constants/strings.dart';
+import 'package:ravekb/constants/app_strings.dart';
 import 'package:ravekb/views/home_view.dart';
 
 void main() {
