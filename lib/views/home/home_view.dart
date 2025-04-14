@@ -7,11 +7,12 @@ class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
   @override
-  _HomeViewState createState() => _HomeViewState();
+  State<HomeView> createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
   late final HomeViewModel _viewModel;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -35,6 +36,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   void dispose() {
+    _scrollController.dispose();
     _viewModel.dispose();
     super.dispose();
   }
@@ -42,18 +44,51 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          // 1. Адаптивное фоновое видео
-          _buildVideoBackground(),
+      body: CustomScrollView(
+        controller: _scrollController,
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          // 1. Видео-секция (как обычный блок)
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: VideoBackground(
+                controller: _viewModel.videoService.controller,
+              ),
+            ),
+          ),
+
+          // 2. Остальные секции
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => _buildContentSection(index),
+              childCount: 3,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildVideoBackground() {
-    return Positioned.fill(
-      child: VideoBackground(controller: _viewModel.videoService.controller),
+  Widget _buildContentSection(int index) {
+    final colors = [
+      Colors.blueGrey[800]!,
+      Colors.blueGrey[600]!,
+      Colors.blueGrey[400]!,
+    ];
+
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      color: colors[index],
+      alignment: Alignment.center,
+      child: Text(
+        'Секция ${index + 1}',
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 32,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 }

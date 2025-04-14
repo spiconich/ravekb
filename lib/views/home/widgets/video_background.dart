@@ -4,7 +4,7 @@ import 'package:video_player/video_player.dart';
 class VideoBackground extends StatelessWidget {
   final VideoPlayerController controller;
 
-  const VideoBackground({Key? key, required this.controller}) : super(key: key);
+  const VideoBackground({required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -12,26 +12,15 @@ class VideoBackground extends StatelessWidget {
       return const Center(child: CircularProgressIndicator());
     }
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final screenHeight = constraints.maxHeight;
-        final screenWidth = constraints.maxWidth;
-        final videoRatio = controller.value.aspectRatio;
-        final videoWidth = screenHeight * videoRatio;
-
-        return SizedBox(
-          height: screenHeight,
-          width: videoWidth > screenWidth ? videoWidth : screenWidth,
-          child: FittedBox(
-            fit: videoWidth > screenWidth ? BoxFit.fitHeight : BoxFit.fitWidth,
-            child: SizedBox(
-              width: videoWidth,
-              height: screenHeight,
-              child: VideoPlayer(controller),
-            ),
-          ),
-        );
-      },
+    return SizedBox.expand(
+      child: FittedBox(
+        fit: BoxFit.cover,
+        child: SizedBox(
+          width: controller.value.size.width,
+          height: controller.value.size.height,
+          child: VideoPlayer(controller),
+        ),
+      ),
     );
   }
 }
