@@ -6,7 +6,17 @@ class Article {
 }
 
 class HomeModel {
-  final List<Article> articles;
+  final String backgroundVideoPath = 'assets/videos/background.mp4';
+  final List<Article> _articles = [
+    Article(
+      title: 'Как работать с Flutter',
+      description: 'Полное руководство по MVVM в Flutter',
+    ),
+    Article(
+      title: 'State Management',
+      description: 'Разбираем лучшие практики',
+    ),
+  ];
 
-  HomeModel({required this.articles});
+  List<Article> get articles => _articles;
 }

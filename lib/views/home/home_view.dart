@@ -62,7 +62,7 @@ class _HomeViewState extends State<HomeView> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) => _buildContentSection(index),
-              childCount: 3,
+              childCount: _viewModel.articles.length,
             ),
           ),
         ],
@@ -71,24 +71,10 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget _buildContentSection(int index) {
-    final colors = [
-      Colors.blueGrey[800]!,
-      Colors.blueGrey[600]!,
-      Colors.blueGrey[400]!,
-    ];
-
     return Container(
       height: MediaQuery.of(context).size.height,
-      color: colors[index],
-      alignment: Alignment.center,
-      child: Text(
-        'Секция ${index + 1}',
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 32,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+      color: Colors.blueGrey[index * 100 + 100]!,
+      child: Center(child: Text(_viewModel.articles[index].title)),
     );
   }
 }
