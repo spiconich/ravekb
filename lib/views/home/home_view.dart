@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ravekb/views/home/widgets/video_background.dart';
 import 'package:ravekb/viewmodels/home_viewmodel.dart';
 import 'package:ravekb/services/video_service.dart';
 
@@ -12,7 +11,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   late final HomeViewModel _viewModel;
-  final ScrollController _scrollController = ScrollController();
+  bool _isInitialized = false;
 
   @override
   void initState() {
@@ -24,45 +23,33 @@ class _HomeViewState extends State<HomeView> {
   Future<void> _initializeVideo() async {
     try {
       await _viewModel.initVideo();
-      if (mounted) setState(() {});
+      if (mounted) setState(() => _isInitialized = true);
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('Ошибка загрузки видео: $e')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Ошибка видео: ${e.toString()}')),
+        );
       }
     }
   }
 
   @override
-  void dispose() {
-    _scrollController.dispose();
-    _viewModel.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    if (!_isInitialized) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
     return Scaffold(
       body: CustomScrollView(
-        controller: _scrollController,
         physics: const BouncingScrollPhysics(),
         slivers: [
-          // 1. Видео-секция (как обычный блок)
-          SliverToBoxAdapter(
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height,
-              child: VideoBackground(
-                controller: _viewModel.videoService.controller,
-              ),
-            ),
-          ),
-
-          // 2. Остальные секции
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              (context, index) => _buildContentSection(index),
-              childCount: _viewModel.articles.length,
+              (context, index) => SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: _viewModel.sections[index].build(context),
+              ),
+              childCount: _viewModel.sections.length,
             ),
           ),
         ],
@@ -70,11 +57,9 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Widget _buildContentSection(int index) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      color: Colors.blueGrey[index * 100 + 100]!,
-      child: Center(child: Text(_viewModel.articles[index].title)),
-    );
+  @override
+  void dispose() {
+    _viewModel.dispose();
+    super.dispose();
   }
 }

@@ -1,30 +1,36 @@
-import 'package:ravekb/constants/app_strings.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoService {
-  late VideoPlayerController _controller;
-  bool _isInitialized = false;
+  VideoPlayerController? _controller;
+  bool _isDisposed = false;
 
   Future<void> init(String videoPath) async {
+    if (_isDisposed) return;
+
+    await _controller?.dispose();
+
     _controller =
         VideoPlayerController.asset(videoPath)
           ..setLooping(true)
           ..setVolume(0);
 
     try {
-      await _controller.initialize();
-      _isInitialized = true;
-      _controller.play();
+      await _controller!.initialize();
+      if (!_isDisposed) {
+        await _controller!.play();
+      }
     } catch (e) {
-      _isInitialized = false;
-      throw Exception("${AppStrings.videoInitErr} $e");
+      await _controller?.dispose();
+      _controller = null;
+      rethrow;
     }
   }
 
-  VideoPlayerController get controller => _controller;
-  bool get isInitialized => _isInitialized;
+  VideoPlayerController? get controller => _isDisposed ? null : _controller;
 
   void dispose() {
-    _controller.dispose();
+    _isDisposed = true;
+    _controller?.dispose();
+    _controller = null;
   }
 }
