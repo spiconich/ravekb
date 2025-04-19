@@ -24,7 +24,7 @@ class ImageSection implements Section {
           Flexible(
             child: Padding(
               padding: const EdgeInsets.all(24),
-              child: Text("Img here"),
+              child: Text("$imagePath here"),
             ),
           ),
           Padding(
