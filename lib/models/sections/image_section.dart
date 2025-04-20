@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ravekb/models/section.dart';
+import 'package:ravekb/models/section_model.dart';
 
 class ImageSection implements Section {
   @override
   final String type = 'image';
+  @override
+  final String id;
   final String imagePath;
   final String caption;
   final Color backgroundColor;
@@ -11,6 +13,7 @@ class ImageSection implements Section {
   ImageSection({
     required this.imagePath,
     required this.caption,
+    required this.id,
     this.backgroundColor = Colors.grey,
   });
 

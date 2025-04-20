@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ravekb/constants/app_strings.dart';
 import 'package:ravekb/views/home/home_view.dart';
+import 'package:ravekb/constants/global_keys.dart';
 
 void main() {
   runApp(const MainApp());
@@ -17,7 +18,8 @@ class MainApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomeView(),
+      navigatorKey: navigatorKey,
+      home: const HomeView(),
       debugShowCheckedModeBanner: false,
     );
   }

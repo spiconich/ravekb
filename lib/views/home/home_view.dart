@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ravekb/viewmodels/home_viewmodel.dart';
 import 'package:ravekb/services/video_service.dart';
+import 'package:ravekb/views/app_menu.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -40,17 +41,28 @@ class _HomeViewState extends State<HomeView> {
     }
 
     return Scaffold(
-      body: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: [
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) => SizedBox(
-                height: MediaQuery.of(context).size.height,
-                child: _viewModel.sections[index].build(context),
+      body: Stack(
+        children: [
+          CustomScrollView(
+            controller: _viewModel.scrollController,
+            physics: const ClampingScrollPhysics(),
+            slivers: [
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) => SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    child: _viewModel.sections[index].build(context),
+                  ),
+                  childCount: _viewModel.sections.length,
+                ),
               ),
-              childCount: _viewModel.sections.length,
-            ),
+            ],
+          ),
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: AppMenu(viewModel: _viewModel),
           ),
         ],
       ),

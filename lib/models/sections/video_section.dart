@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
-import 'package:ravekb/models/section.dart';
+import 'package:ravekb/models/section_model.dart';
 
 class VideoSection implements Section {
   @override
   final String type = 'video';
+  @override
+  final String id;
   final String videoPath;
   final VideoPlayerController? controller;
 
-  VideoSection({required this.videoPath, this.controller});
+  VideoSection({required this.videoPath, this.controller, required this.id});
 
   @override
   Widget build(BuildContext context) {

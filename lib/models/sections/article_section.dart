@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ravekb/models/section.dart';
+import 'package:ravekb/models/section_model.dart';
 
 class ArticleSection implements Section {
   @override
   final String type = 'article';
+  @override
+  final String id;
   final String title;
   final String description;
   final Color backgroundColor;
@@ -11,6 +13,7 @@ class ArticleSection implements Section {
   ArticleSection({
     required this.title,
     required this.description,
+    required this.id,
     this.backgroundColor = Colors.blueGrey,
   });
 
