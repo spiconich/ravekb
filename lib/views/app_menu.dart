@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ravekb/constants/dementions.dart';
 import 'package:ravekb/viewmodels/home_viewmodel.dart';
 
 class AppMenu extends StatelessWidget {
@@ -17,28 +18,55 @@ class AppMenu extends StatelessWidget {
         ],
       ),
       child: Center(
-        // Основной контейнер с выравниванием по центру
         child: SingleChildScrollView(
-          // Добавляем возможность прокрутки если пунктов много
           scrollDirection: Axis.horizontal,
           child: Row(
-            mainAxisSize: MainAxisSize.min, // Важно для центрирования
+            mainAxisSize: MainAxisSize.min,
             children: [
-              const SizedBox(width: 20), // Отступ слева
               for (final item in viewModel.menuItems)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: TextButton(
-                    onPressed: () => viewModel.scrollToSection(item.sectionId),
-                    style: TextButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      textStyle: const TextStyle(fontSize: 16),
-                    ),
-                    child: Text(item.title),
-                  ),
+                _MenuItem(
+                  title: item.title,
+                  onPressed: () => viewModel.scrollToSection(item.sectionId),
                 ),
-              const SizedBox(width: 20), // Отступ справа
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _MenuItem extends StatefulWidget {
+  final String title;
+  final VoidCallback onPressed;
+
+  const _MenuItem({required this.title, required this.onPressed});
+
+  @override
+  State<_MenuItem> createState() => _MenuItemState();
+}
+
+class _MenuItemState extends State<_MenuItem> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        onEnter: (_) => setState(() => _isHovered = true),
+        onExit: (_) => setState(() => _isHovered = false),
+        child: GestureDetector(
+          onTap: widget.onPressed,
+          child: AnimatedDefaultTextStyle(
+            duration: const Duration(milliseconds: 200),
+            style: TextStyle(
+              fontSize: appBarTextSize,
+              color: _isHovered ? Colors.red : Colors.white,
+              fontWeight: _isHovered ? FontWeight.bold : FontWeight.normal,
+            ),
+            child: Text(widget.title),
           ),
         ),
       ),
