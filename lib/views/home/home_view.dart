@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ravekb/viewmodels/home_viewmodel.dart';
 import 'package:ravekb/services/video_service.dart';
-import 'package:ravekb/views/app_menu.dart';
+import 'package:ravekb/views/app_menu/app_menu.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
