@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:ravekb/constants/dementions.dart';
+import 'package:ravekb/models/menu_item_model.dart';
 
-class MenuItem extends StatefulWidget {
-  final String title;
+class TextMenuItem extends StatefulWidget {
+  final MenuItemData item;
   final VoidCallback onPressed;
 
-  const MenuItem({required this.title, required this.onPressed});
+  const TextMenuItem({super.key, required this.item, required this.onPressed});
 
   @override
-  State<MenuItem> createState() => _MenuItemState();
+  State<TextMenuItem> createState() => _TextMenuItemState();
 }
 
-class _MenuItemState extends State<MenuItem> {
+class _TextMenuItemState extends State<TextMenuItem> {
   bool _isHovered = false;
 
   @override
@@ -31,7 +32,7 @@ class _MenuItemState extends State<MenuItem> {
               color: _isHovered ? Colors.red : Colors.white,
               fontWeight: _isHovered ? FontWeight.bold : FontWeight.normal,
             ),
-            child: Text(widget.title),
+            child: Text(widget.item.title!),
           ),
         ),
       ),

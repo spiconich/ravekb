@@ -17,9 +17,17 @@ class HomeViewModel {
   final ScrollController scrollController = ScrollController();
 
   final List<MenuItemData> menuItems = const [
-    MenuItemData(title: 'Home', sectionId: _homeVideoSectionId),
-    MenuItemData(title: 'Раздел_1', sectionId: _articleSectionId),
-    MenuItemData(title: 'Раздел_2', sectionId: _imageSectionId),
+    MenuItemData.text(title: 'Home', sectionId: _homeVideoSectionId),
+    MenuItemData.text(title: 'Раздел_1', sectionId: _articleSectionId),
+    MenuItemData.text(title: 'Раздел_2', sectionId: _imageSectionId),
+    MenuItemData.image(
+      imagePath: "assets/images/telegram-32.png",
+      url: "https://t.me/raveekb",
+    ),
+    MenuItemData.image(
+      imagePath: "assets/images/vk-32.png",
+      url: "https://vk.com/ravekb",
+    ),
   ];
 
   HomeViewModel(this.videoService)
