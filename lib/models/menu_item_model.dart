@@ -1,6 +1,6 @@
-class MenuItem {
+class MenuItemData {
   final String title;
   final String sectionId; // Соответствует uniqueId секции
 
-  MenuItem({required this.title, required this.sectionId});
+  const MenuItemData({required this.title, required this.sectionId});
 }

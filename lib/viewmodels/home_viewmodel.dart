@@ -16,10 +16,10 @@ class HomeViewModel {
   final List<Section> sections;
   final ScrollController scrollController = ScrollController();
 
-  final List<MenuItem> menuItems = [
-    MenuItem(title: 'Home', sectionId: _homeVideoSectionId),
-    MenuItem(title: 'Раздел_1', sectionId: _articleSectionId),
-    MenuItem(title: 'Раздел_2', sectionId: _imageSectionId),
+  final List<MenuItemData> menuItems = const [
+    MenuItemData(title: 'Home', sectionId: _homeVideoSectionId),
+    MenuItemData(title: 'Раздел_1', sectionId: _articleSectionId),
+    MenuItemData(title: 'Раздел_2', sectionId: _imageSectionId),
   ];
 
   HomeViewModel(this.videoService)
