@@ -44,7 +44,7 @@ class _ImageMenuItemState extends State<ImageMenuItem> {
   }
 
   String _getTooltipMessage() {
-    final uri = Uri.parse(widget.item.target!);
+    final uri = Uri.parse(widget.item.target);
     return '${uri.host}${uri.path}';
   }
 }
