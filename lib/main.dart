@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ravekb/constants/app_strings.dart';
+import 'package:ravekb/constants/colors.dart';
 import 'package:ravekb/views/home/home_view.dart';
 import 'package:ravekb/constants/global_keys.dart';
 
@@ -15,7 +16,13 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: AppStrings.title,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        scrollbarTheme: ScrollbarThemeData(
+          thumbColor: WidgetStateProperty.all(whiteColor),
+          thumbVisibility: WidgetStateProperty.all(true),
+          thickness: WidgetStateProperty.all(8),
+          radius: Radius.circular(4),
+          minThumbLength: 50,
+        ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       navigatorKey: navigatorKey,
