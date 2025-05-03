@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ravekb/models/menu_item_model.dart';
+import 'package:ravekb/constants/colors.dart';
 
 class ImageMenuItem extends StatefulWidget {
   final MenuItemData item;
@@ -23,7 +24,7 @@ class _ImageMenuItemState extends State<ImageMenuItem> {
         child: InkWell(
           onTap: widget.onPressed,
           borderRadius: BorderRadius.circular(20),
-          hoverColor: Colors.red.withOpacity(0.3),
+          hoverColor: redColor.withOpacity(0.3),
           onHover: (hovered) => setState(() => _isHovered = hovered),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -34,7 +35,7 @@ class _ImageMenuItemState extends State<ImageMenuItem> {
                 widget.item.imagePath!,
                 width: 24,
                 height: 24,
-                color: _isHovered ? Colors.red : Colors.white,
+                color: _isHovered ? redColor : whiteColor,
               ),
             ),
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ravekb/viewmodels/home_viewmodel.dart';
 import 'package:ravekb/models/menu_item_model.dart';
 import 'package:ravekb/views/app_menu/app_menu_item_factory.dart';
+import 'package:ravekb/constants/colors.dart';
 
 class AppMenu extends StatelessWidget {
   final HomeViewModel viewModel;
@@ -12,7 +13,7 @@ class AppMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 60,
-      decoration: BoxDecoration(color: Colors.black.withOpacity(0.7)),
+      decoration: BoxDecoration(color: blackColor.withOpacity(0.7)),
       child: Row(
         children: [
           // Текстовые пункты (скролл к секциям)

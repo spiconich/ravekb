@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ravekb/constants/dementions.dart';
 import 'package:ravekb/models/menu_item_model.dart';
+import 'package:ravekb/constants/colors.dart';
 
 class TextMenuItem extends StatefulWidget {
   final MenuItemData item;
@@ -29,7 +30,7 @@ class _TextMenuItemState extends State<TextMenuItem> {
             duration: const Duration(milliseconds: 200),
             style: TextStyle(
               fontSize: appBarTextSize,
-              color: _isHovered ? Colors.red : Colors.white,
+              color: _isHovered ? redColor : whiteColor,
               fontWeight: _isHovered ? FontWeight.bold : FontWeight.normal,
             ),
             child: Text(widget.item.title!),
